@@ -1,11 +1,57 @@
 \ProvidesPackage{beamerthemetudo}[2019/01/29]
 
-%Requirements
+% Requirements
 \RequirePackage{xcolor}
 \RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
 \RequirePackage{calc}
 \hypersetup{colorlinks=true, linkcolor=darkgray, urlcolor=tudark}
+
+% define colors
+\xdefinecolor{tugreen}{RGB}{132, 184, 25}       % 0
+\colorlet{tulight}{tugreen!20!white}
+\colorlet{tudark}{tugreen!60!black}
+
+\xdefinecolor{tuorange}{RGB}{227, 105, 19}      % 3
+\xdefinecolor{tuyellow}{RGB}{242, 189, 0}       % 4
+\xdefinecolor{tucitron}{RGB}{249, 219, 0}       % 5
+
+
+% a thin and clean progress bar that fits well within the overall asthetic of
+% of this theme. Adapted from http://tex.stackexchange.com/a/59749 (Gonzalo Medina)
+\makeatletter
+\newcommand\progressbar@progressbar{} % the progress bar command
+\newcount\progressbar@tmpcounta % auxiliary counter
+\newcount\progressbar@tmpcountb % auxiliary counter
+\newdimen\progressbar@pbht % progressbar height
+\newdimen\progressbar@pbwd % progressbar width
+\newdimen\progressbar@tmpdim % auxiliary dimension
+
+\progressbar@pbwd=\paperwidth
+\newcommand\progressbar@ffn{0} % needed amount of frames for title page and table of contents slide
+
+% the progress bar
+\def\progressbar@progressbar{%
+    \ifnum\insertframenumber>\progressbar@ffn
+
+    \progressbar@tmpcounta=\insertframenumber
+    \advance\progressbar@tmpcounta by -\progressbar@ffn
+    \progressbar@tmpcountb=\inserttotalframenumber
+    \advance\progressbar@tmpcountb by -\progressbar@ffn
+    \progressbar@tmpdim=\progressbar@pbwd
+    \multiply\progressbar@tmpdim by \progressbar@tmpcounta
+    \divide\progressbar@tmpdim by \progressbar@tmpcountb
+  \centering
+  \begin{tikzpicture}[thin]
+    \draw[color=darkgray]
+      (3.75em,0) -- (\progressbar@pbwd-3.75em,0);
+
+      \draw[color=tugreen] %
+        (3.75em,0) -- (\progressbar@tmpdim-3.75em, 0);
+
+  \end{tikzpicture}%
+  \fi%
+}
 
 
 \mode<presentation>
@@ -74,7 +120,10 @@
     leftskip=1em,
     rightskip=\beamer@rightmargin,
   ]{headline}%
-  \usebeamerfont{institute in head/foot}\hfill\insertshortinstitute[respectlinebreaks]
+  % use logo of institute:
+  \hfill\includegraphics[height=\headerheight]{logos/e5b.pdf}
+  % or use text instead:
+  %\usebeamerfont{institute in head/foot}\hfill\insertshortinstitute[respectlinebreaks]
   \end{beamercolorbox}%
   \vskip2ex%
   \ifnum\insertframenumber=1%
@@ -82,7 +131,8 @@
   \else%
     \hspace{\beamer@leftmargin}%
     \usebeamercolor{separation line}%
-    \rule{\paperwidth-\beamer@leftmargin-\beamer@rightmargin}{0.4pt}%
+    % this adds the progress bar
+    \progressbar@progressbar% 
   \fi
   \vskip2ex
 }
@@ -132,7 +182,7 @@
       dp=10pt,
       rightskip=\beamer@rightmargin,
     ]{frame}%
-      \raggedleft%
+      \hfill%
       \usebeamerfont{framenumber}\insertframenumber%
       \if@showtotalframes%
       ~/~\inserttotalframenumber%
@@ -219,14 +269,6 @@
 
 
 %% colors
-\xdefinecolor{tugreen}{RGB}{132, 184, 25}       % 0
-\colorlet{tulight}{tugreen!20!white}
-\colorlet{tudark}{tugreen!60!black}
-
-\xdefinecolor{tuorange}{RGB}{227, 105, 19}      % 3
-\xdefinecolor{tuyellow}{RGB}{242, 189, 0}       % 4
-\xdefinecolor{tucitron}{RGB}{249, 219, 0}       % 5
-
 \setbeamercolor{section in head/foot}{fg=tugreen, bg=white}
 \setbeamercolor{framenumber}{fg=tugreen, bg=white}
 
@@ -247,5 +289,6 @@
 
 \setbeamercolor{section number in toc}{fg=tugreen, bg=white}
 \setbeamercolor{section in toc}{fg=darkgray, bg=white}
+
 
 \mode<all>

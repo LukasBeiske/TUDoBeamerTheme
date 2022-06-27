@@ -1,0 +1,24 @@
+\begin{frame}{Hinweise}
+  Zu diesem Theme
+  \begin{itemize}
+    \item Zur Installation des Themes müssen mindestens die Datei \texttt{beamerthemetudo.sty} und der Ordner \texttt{logos} in einen Ordner verschoben werden, in dem \LaTeX nach Paketen sucht.
+      Dies können sein
+      \begin{itemize}
+        \item \texttt{TEXMFHOME/tex/latex/tudobeamertheme}. Den Wert von \texttt{TEXMFHOME} bekommen Sie über \texttt{kpsewhich --var-value TEXMFHOME}, üblicherweise ist dies \texttt{\$HOME/texmf}.
+        \item Der gleiche Ordner in dem Sie Ihr Dokument kompilieren.
+        \item Ein beliebiger Ordner, der in der Variablen \texttt{TEXINPUTS} enthalten ist.
+      \end{itemize}
+  \end{itemize}
+  
+  Oneliner zur Installation:\\
+  \texttt{\footnotesize\$ cd `kpsewhich --var-value TEXMFHOME` \&\& git clone https://github.com/maxnoe/tudobeamertheme}
+
+  \medskip
+  Allgemein zu Beamer und Latex:
+  \begin{itemize}
+    \item Umfangreicher \LaTeX-Kurs von PeP et Al. \\
+      \url{http://toolbox.pep-dortmund.org/notes}
+    \item Latex-Beamer Dokumetation:\\
+    \url{http://www.ctan.org/pkg/beamer}
+  \end{itemize}
+\end{frame}
